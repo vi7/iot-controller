@@ -1,0 +1,2 @@
+COMPONENT_SRCDIRS := rc-switch
+COMPONENT_ADD_INCLUDEDIRS := rc-switch
