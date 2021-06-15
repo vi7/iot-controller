@@ -30,6 +30,14 @@ git clone --recurse-submodules https://github.com/vi7/iot-controller.git
 Updating submodules:
 ```bash
 git submodule update --init --recursive
+# OR if changes already fetched and visible in the status:
+git submodule update --remote
+```
+
+Working on a submodule:
+```bash
+# update local submodule branch by rebasing:
+git submodule update --remote --rebase
 ```
 
 Activate Python virtualenv with `source venv/bin/activate`

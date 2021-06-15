@@ -1,3 +1,4 @@
 [submodule "components/rc-switch/rc-switch"]
 	path = components/rc-switch/rc-switch
 	url = git@github.com:vi7/rc-switch.git
+  branch = freertos
