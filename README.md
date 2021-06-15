@@ -22,6 +22,16 @@ python -m pip install  -r $IDF_PATH/requirements.txt
 Development
 -----------
 
+Cloning the project and submodules:
+```bash
+git clone --recurse-submodules https://github.com/vi7/iot-controller.git
+```
+
+Updating submodules:
+```bash
+git submodule update --init --recursive
+```
+
 Activate Python virtualenv with `source venv/bin/activate`
 
 Compile project: `make all`
