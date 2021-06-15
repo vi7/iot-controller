@@ -1,0 +1,3 @@
+[submodule "components/rc-switch/rc-switch"]
+	path = components/rc-switch/rc-switch
+	url = https://github.com/vi7/rc-switch
