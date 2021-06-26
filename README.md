@@ -57,4 +57,3 @@ Speed up build with compiling multiple files in parallel: `make -jN app-flash` -
 Erase the entire flash: `make erase_flash`
 
 Make targets could be combined in one run
-
