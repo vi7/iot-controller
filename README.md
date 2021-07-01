@@ -16,7 +16,9 @@ source venv/bin/activate
 python -m pip install  -r $IDF_PATH/requirements.txt
 ```
 
-**IMPORTANT:** Python virtualenv MUST be activated before using `make`
+To deactivate Python virtualenv run `deactivate`
+
+> **NOTE:** Python virtualenv MUST be activated with `source venv/bin/activate` each time before using `make`
 
 
 Development
@@ -47,6 +49,8 @@ Compile project: `make all`
 Compile and flash: `make flash`
 
 Viewing serial output: `make monitor`
+
+Serial monitor hotkeys: Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H
 
 Build just the app: `make app`
 

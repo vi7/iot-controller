@@ -18,10 +18,12 @@
 #include "RCSwitch.h"
 
 #define LEVEL_HIGH  1
-#define LEVEL_LOW   1
+#define LEVEL_LOW   0
 #define TRANSMITTER_IO_NUM  5
 #define LED_IO_NUM          2 // WeMos D1 Mini compatible
 #define LED_IO_PIN_MASK     ((1ULL << LED_IO_NUM))
+#define LED_ON LEVEL_LOW
+#define LED_OFF LEVEL_HIGH
 
 // Message length bits
 #define MESSAGE_LENGTH 32
@@ -47,7 +49,7 @@ static void configure_transmitter() {
     // transmitter.setPulseLength(320);
 
     // Optional: set number of transmission repetitions.
-    transmitter.setRepeatTransmit(10);
+    // transmitter.setRepeatTransmit(10);
 }
 
 static void configure_led() {
@@ -56,18 +58,12 @@ static void configure_led() {
     io_conf.intr_type = GPIO_INTR_DISABLE;
     io_conf.mode = GPIO_MODE_OUTPUT;
     io_conf.pin_bit_mask = LED_IO_PIN_MASK;
-    io_conf.pull_down_en = 0;
-    io_conf.pull_up_en = 0;
+    io_conf.pull_down_en = (gpio_pulldown_t)0;
+    io_conf.pull_up_en = (gpio_pullup_t)0;
     gpio_config(&io_conf);
 }
 
-static uint32_t get_uptime_ms() {
-    return (uint32_t)(xTaskGetTickCount() * portTICK_RATE_MS);
-}
-
 extern "C" void app_main(void) {
-
-    static uint8_t led_state = 1;
 
     ESP_LOGI(TAG, "\n\nDevice is up. Hey there!");
 
@@ -77,16 +73,16 @@ extern "C" void app_main(void) {
 
     while (1) {
 
-        ESP_LOGI(TAG, "%lu Sending: %#X\n", get_uptime_ms(), MESSAGE_ON);
+        ESP_LOGI(TAG, "Sending: %#X", MESSAGE_ON);
         transmitter.send(MESSAGE_ON, MESSAGE_LENGTH);
-        gpio_set_level((gpio_num_t)LED_IO_NUM, led_state % 2);
-        vTaskDelay(3000 / portTICK_RATE_MS);
+        gpio_set_level((gpio_num_t)LED_IO_NUM, LED_ON);
+        // vTaskDelay(3000 / portTICK_RATE_MS);
+        vTaskDelay(pdMS_TO_TICKS(3000));
 
-        led_state++;
-
-        ESP_LOGI(TAG, "%lu Sending: %#X\n", get_uptime_ms(), MESSAGE_OFF);
+        ESP_LOGI(TAG, "Sending: %#X", MESSAGE_OFF);
         transmitter.send(MESSAGE_OFF, MESSAGE_LENGTH);
-        gpio_set_level((gpio_num_t)LED_IO_NUM, led_state % 2);
-        vTaskDelay(3000 / portTICK_RATE_MS);
+        gpio_set_level((gpio_num_t)LED_IO_NUM, LED_OFF);
+        // vTaskDelay(3000 / portTICK_RATE_MS);
+        vTaskDelay(pdMS_TO_TICKS(3000));
     }
 }
