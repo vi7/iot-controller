@@ -43,7 +43,7 @@ install_sdk() {
   if [ ! -d "$RTOS_SDK_INSTALLATION_PREFIX/$RTOS_SDK_NAME" ]
   then
     mkdir -p "$RTOS_SDK_INSTALLATION_PREFIX"
-    git clone --branch release/v$RTOS_SDK_VERSION https://github.com/espressif/$RTOS_SDK_NAME.git "$RTOS_SDK_INSTALLATION_PREFIX/$RTOS_SDK_NAME"
+    git clone --recurse-submodules --branch release/v$RTOS_SDK_VERSION https://github.com/espressif/$RTOS_SDK_NAME.git "$RTOS_SDK_INSTALLATION_PREFIX/$RTOS_SDK_NAME"
     # Uncomment below to install needed Python packages globally for the current user - NOT RECOMMENDED
     #python3 -m pip install --user -r "$RTOS_SDK_INSTALLATION_PREFIX"/$RTOS_SDK_NAME/requirements.txt
     printf "\n\e[33;1mAdd \"export IDF_PATH=%s/%s\" to the user profile\e[0m\n\n" "$RTOS_SDK_INSTALLATION_PREFIX" $RTOS_SDK_NAME
